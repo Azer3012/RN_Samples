@@ -4,6 +4,7 @@ import React from 'react'
 
 import { NavigationContainer } from '@react-navigation/native'
 import Stacks from './app/Stacks/Stacks'
+import AppStack from './app/Stacks/AppStack'
 
 
 
@@ -15,7 +16,9 @@ const App = () => {
   return (
     <NavigationContainer>
 
-      <Stacks />
+      <AppStack/>
+
+      {/* <Stacks /> */}
 
     </NavigationContainer>
   )
