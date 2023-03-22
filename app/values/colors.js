@@ -3,5 +3,7 @@ export default colors={
     black:"#000",
     drawerBg:"#8200d6",
     drawerActive:"#aa18ea",
-    drawerInActive:"#333"
+    drawerInActive:"#333",
+    tabBarBg:"#AD40AF",
+    tabBarActive:"yellow"
 }

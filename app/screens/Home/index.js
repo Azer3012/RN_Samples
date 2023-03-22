@@ -12,6 +12,9 @@ const Home = () => {
       <TouchableOpacity onPress={()=>navigation.openDrawer()} style={styles.btn}>
         <Text style={styles.btnText}>Open Drawer</Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={()=>navigation.navigate('Details')} style={[styles.btn,{marginTop:30}]}>
+        <Text style={styles.btnText}>Go Details</Text>
+      </TouchableOpacity>
     </View>
   )
 }
