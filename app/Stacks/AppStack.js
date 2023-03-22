@@ -5,6 +5,7 @@ import {Home, Messages, Moments, Profile, Settings} from '../screens';
 import CustomDrawer from '../components/CustomDrawer';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import colors from '../values/colors';
+import TabStack from './TabStack';
 
 const Drawer = createDrawerNavigator();
 
@@ -21,7 +22,7 @@ const AppStack = () => {
       }}>
       <Drawer.Screen
         name="Home"
-        component={Home}
+        component={TabStack}
         options={{
           drawerIcon: ({color}) => (
             <IonIcons name="home-outline" size={22} color={color} />
