@@ -1,44 +1,30 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { Login, Register } from '../pages'
-import helpers from '../helpers/helpers'
+import {StyleSheet} from 'react-native';
+import React, {useContext} from 'react';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {Login, Register} from '../pages';
+import helpers from '../helpers/helpers';
+import Loading from '../components/Loading';
+import OnBoarding from '../pages/OnBoarding/OnBoarding';
 
-import Loading from '../components/Loading'
-import OnBoarding from '../pages/OnBoarding/OnBoarding'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import {AuthContext} from '../context/AuthContext';
 
-
-
-const Stack=createNativeStackNavigator()
+const Stack = createNativeStackNavigator();
 const Stacks = () => {
-    const [loading,setLoading]=useState(true)
-  const [viewedOnBoarding,setViewedOnBoarding]=useState(false)
-  const checkOnBoarding=async()=>{
-    try {
-        const value=await AsyncStorage.getItem('@viewOnBoarding')
-        if(value!==null){
-            setViewedOnBoarding(true)
-        }
-    } catch (error) {
-        console.log(error);
-    }
-    finally{
-        setLoading(false)
-    }
-  }
-  useEffect(()=>{
-    checkOnBoarding()
-  },[])
+  const {userToken, isLoading} = useContext(AuthContext);
   return (
     <Stack.Navigator screenOptions={helpers.screenOptions}>
-       {!viewedOnBoarding && <Stack.Screen name='OnBoarding' component={loading?Loading:OnBoarding}/>}
-        <Stack.Screen name='Login' component={Login}/>
-        <Stack.Screen name='Register' component={Register}/>
+      {!userToken && (
+        <Stack.Screen
+          name="OnBoarding"
+          component={isLoading ? Loading : OnBoarding}
+        />
+      )}
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Register" component={Register} />
     </Stack.Navigator>
-  )
-}
+  );
+};
 
-export default Stacks
+export default Stacks;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});
