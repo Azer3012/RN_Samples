@@ -6,19 +6,13 @@ import { NavigationContainer } from '@react-navigation/native'
 import Stacks from './app/Stacks/Stacks'
 import AppStack from './app/Stacks/AppStack'
 
-
-
-
 const App = () => {
-
-
-
   return (
     <NavigationContainer>
 
-      <AppStack/>
+      {/* <AppStack /> */}
 
-      {/* <Stacks /> */}
+      <Stacks />
 
     </NavigationContainer>
   )

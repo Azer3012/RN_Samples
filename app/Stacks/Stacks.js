@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { Login } from '../pages'
+import { Login, Register } from '../pages'
 import helpers from '../helpers/helpers'
 
 import Loading from '../components/Loading'
@@ -34,6 +34,7 @@ const Stacks = () => {
     <Stack.Navigator screenOptions={helpers.screenOptions}>
        {!viewedOnBoarding && <Stack.Screen name='OnBoarding' component={loading?Loading:OnBoarding}/>}
         <Stack.Screen name='Login' component={Login}/>
+        <Stack.Screen name='Register' component={Register}/>
     </Stack.Navigator>
   )
 }

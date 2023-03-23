@@ -1,13 +1,14 @@
 import {
   Image,
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import helpers from '../../helpers/helpers';
 import colors from '../../values/colors';
@@ -16,36 +17,23 @@ import IonIcon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import InputField from '../../components/InputField';
 import CustomButton from '../../components/CustomButton';
+import DatePicker from 'react-native-date-picker';
 
-const Login = () => {
+const Register = () => {
   const navigation = useNavigation();
+  const [date, setDate] = useState(new Date())
+  const [open, setOpen] = useState(false)
+  const [birthday, setBirthday] = useState("Date of birth")
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.viewContainer}>
+      <ScrollView style={styles.viewContainer}>
         <View style={styles.imageContainer}>
           <Image
             style={styles.image}
             source={require('../../assets/images/auth.png')}
           />
         </View>
-        <Text style={styles.text}>Login</Text>
-        <InputField
-          label={'Email ID'}
-          icon={<Icon name="alternate-email" size={20} color="#666" />}
-          keyboardType={"email-address"}
-        />
-        <InputField
-          label={'Password'}
-          icon={ <IonIcon name="ios-lock-closed-outline" size={20} color="#666" />}
-          inputType={"password"}
-          fieldButtonLabel={"forget?"}
-          fieldButtonFunction={()=>{}}
-          
-        />
-        
-        
-        <CustomButton label={"Login"} onPress={()=>{}}/>
-       
+        <Text style={styles.text}>Registration</Text>
         <Text style={{textAlign: 'center', color: '#666', marginBottom: 30}}>
           Or,Login with...
         </Text>
@@ -69,18 +57,66 @@ const Login = () => {
             />
           </TouchableOpacity>
         </View>
-        <View style={styles.registerContainer}>
-          <Text>New to the app?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-            <Text style={styles.forgetText}>Register</Text>
+
+        <InputField
+          label={'Full name'}
+          icon={<IonIcon name="person-outline" size={20} color="#666" />}
+        />
+        <InputField
+          label={'Email ID'}
+          icon={<Icon name="alternate-email" size={20} color="#666" />}
+          keyboardType={'email-address'}
+        />
+        <InputField
+          label={'Password'}
+          icon={
+            <IonIcon name="ios-lock-closed-outline" size={20} color="#666" />
+          }
+          inputType={'password'}
+        />
+        <InputField
+          label={'Confirm Password'}
+          icon={
+            <IonIcon name="ios-lock-closed-outline" size={20} color="#666" />
+          }
+          inputType={'password'}
+        />
+        <View style={styles.datePicker}>
+          <IonIcon name="calendar-outline" size={20} color="#666" />
+          <TouchableOpacity onPress={()=>setOpen(true)} style={styles.datePickerBtn}>
+            <Text style={styles.datePickerText}>{birthday}</Text>
           </TouchableOpacity>
         </View>
-      </View>
+        <DatePicker
+          modal
+          open={open}
+          mode={"date"}
+          date={date}
+          maximumDate={new Date('2005-01-01')}
+          minimumDate={new Date('1980-01-01')}
+          onConfirm={date => {
+            setOpen(false);
+            setDate(date);
+            setBirthday(date.toDateString())
+          }}
+          onCancel={() => {
+            setOpen(false);
+          }}
+        />
+        <CustomButton label={'Register'} onPress={() => {}} />
+
+        <View style={styles.registerContainer}>
+          <Text>Already registered?</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+            <Text style={styles.forgetText}>Login</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
 
-export default Login;
+export default Register;
 
 const styles = StyleSheet.create({
   container: {
@@ -118,10 +154,11 @@ const styles = StyleSheet.create({
   forgetText: {
     ...helpers.fontStyle('Bold', 14, colors.tabBarBg),
   },
- 
+
   social: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginBottom: helpers.px(20),
   },
   socialBtn: {
     borderWidth: 2,
@@ -140,5 +177,18 @@ const styles = StyleSheet.create({
     marginBottom: helpers.px(30),
     marginTop: helpers.px(20),
     gap: helpers.px(8),
+  },
+  datePicker: {
+    flexDirection: 'row',
+    borderBottomColor: '#ccc',
+    borderBottomWidth: 1,
+    marginBottom: helpers.px(30),
+    paddingBottom: helpers.px(8),
+    gap: helpers.px(5),
+  },
+  datePickerBtn: {},
+  datePickerText: {
+    color: '#666',
+    marginTop: helpers.px(5),
   },
 });
