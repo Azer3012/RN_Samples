@@ -1,20 +1,14 @@
 import { StyleSheet, } from 'react-native'
 import React from 'react'
-
-
-import { NavigationContainer } from '@react-navigation/native'
-import Stacks from './app/Stacks/Stacks'
-import AppStack from './app/Stacks/AppStack'
+import { AuthProvider } from './app/context/AuthContext'
+import AppNav from './app/AppNav'
 
 const App = () => {
   return (
-    <NavigationContainer>
+    <AuthProvider>
+      <AppNav/>
+    </AuthProvider>
 
-      {/* <AppStack /> */}
-
-      <Stacks />
-
-    </NavigationContainer>
   )
 }
 

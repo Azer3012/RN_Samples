@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import helpers from '../../helpers/helpers';
 import colors from '../../values/colors';
@@ -16,9 +16,11 @@ import IonIcon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import InputField from '../../components/InputField';
 import CustomButton from '../../components/CustomButton';
+import { AuthContext } from '../../context/AuthContext';
 
 const Login = () => {
   const navigation = useNavigation();
+  const {login}=useContext(AuthContext)
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.viewContainer}>
@@ -44,7 +46,7 @@ const Login = () => {
         />
         
         
-        <CustomButton label={"Login"} onPress={()=>{}}/>
+        <CustomButton label={"Login"} onPress={login}/>
        
         <Text style={{textAlign: 'center', color: '#666', marginBottom: 30}}>
           Or,Login with...
